@@ -1,0 +1,130 @@
+<div class="p-5">
+  <div class="row pb-3">
+    <div class="col-12 d-flex justify-content-end">
+      <button class="btn btn-light me-4" (click)="open()">Update Stock <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-pencil-fill ms-2" viewBox="0 0 16 16">
+  <path d="M12.854.146a.5.5 0 0 0-.707 0L10.5 1.793 14.207 5.5l1.647-1.646a.5.5 0 0 0 0-.708zm.646 6.061L9.793 2.5 3.293 9H3.5a.5.5 0 0 1 .5.5v.5h.5a.5.5 0 0 1 .5.5v.5h.5a.5.5 0 0 1 .5.5v.5h.5a.5.5 0 0 1 .5.5v.207zm-7.468 7.468A.5.5 0 0 1 6 13.5V13h-.5a.5.5 0 0 1-.5-.5V12h-.5a.5.5 0 0 1-.5-.5V11h-.5a.5.5 0 0 1-.5-.5V10h-.5a.5.5 0 0 1-.175-.032l-.179.178a.5.5 0 0 0-.11.168l-2 5a.5.5 0 0 0 .65.65l5-2a.5.5 0 0 0 .168-.11z"/>
+</svg></button>
+      <button class="btn btn-info me-4" (click)="gotoEdit('')">Add customer<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-plus ms-2" viewBox="0 0 16 16">
+  <path d="M8 4a.5.5 0 0 1 .5.5v3h3a.5.5 0 0 1 0 1h-3v3a.5.5 0 0 1-1 0v-3h-3a.5.5 0 0 1 0-1h3v-3A.5.5 0 0 1 8 4"/>
+</svg></button>
+      <button class="btn btn-dark " (click)="exportToExcel()">Export Data <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-arrow-down-circle-fill ms-2" viewBox="0 0 16 16">
+  <path d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0M8.5 4.5a.5.5 0 0 0-1 0v5.793L5.354 8.146a.5.5 0 1 0-.708.708l3 3a.5.5 0 0 0 .708 0l3-3a.5.5 0 0 0-.708-.708L8.5 10.293z"/>
+</svg></button>
+
+    </div>
+  </div>
+  <div class="row py-3">
+    <div class="col-12 heading">Stock Data</div>
+
+  </div>
+  <table class="table table-hover table-dark">
+    <thead>
+      <tr>
+        <th scope="col">Item</th>
+        <th scope="col">Total</th>
+        <th scope="col">Used</th>
+        <th scope="col">Remainig</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <th scope="row">Tomato(no.of.box)</th>
+        <td>{{addform.value.tomato}}</td>
+        <td>{{usedTomato}}</td>
+        <td>{{addform.value.tomato - usedTomato}}</td>
+      </tr>
+      <tr>
+        <th scope="row">Ginger(kg)</th>
+        <td>{{addform.value.ginger}}</td>
+        <td>{{usedGinger}}</td>
+        <td>{{addform.value.ginger - usedGinger}}</td>
+      </tr>
+      <tr>
+        <th scope="row">Shallot(kg)</th>
+        <td>{{addform.value.shallot}}</td>
+        <td>{{usedShallot}}</td>
+        <td>{{addform.value.shallot - usedShallot}}</td>
+      </tr>
+    </tbody>
+  </table>
+
+  <div class="row py-4">
+    <div class="col-12 heading">Customer Data</div>
+
+  </div>
+  <table class="table table-hover table-striped">
+    <thead class="thead-dark">
+      <tr>
+        <th scope="col">Sl No</th>
+        <th scope="col">Name</th>
+        <th scope="col">Contact</th>
+        <th scope="col">Address</th>
+        <th scope="col">Tomato(no.of.box)</th>
+        <th scope="col">Ginger(kg)</th>
+        <th scope="col">Shallot(kg)</th>
+        <th scope="col"></th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let c of customerData; let i = index;">
+        <th scope="row">{{i + 1}}</th>
+        <td>{{c.name}}</td>
+        <td>{{c.contact}}</td>
+        <td>{{c.address}}</td>
+        <td>{{c.tomato}}</td>
+        <td>{{c.ginger}}</td>
+        <td>{{c.shallot}}</td>
+        <td class="edit" (click)="gotoEdit(c.id)">Edit <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-pencil-fill ms-2" viewBox="0 0 16 16">
+  <path d="M12.854.146a.5.5 0 0 0-.707 0L10.5 1.793 14.207 5.5l1.647-1.646a.5.5 0 0 0 0-.708zm.646 6.061L9.793 2.5 3.293 9H3.5a.5.5 0 0 1 .5.5v.5h.5a.5.5 0 0 1 .5.5v.5h.5a.5.5 0 0 1 .5.5v.5h.5a.5.5 0 0 1 .5.5v.207zm-7.468 7.468A.5.5 0 0 1 6 13.5V13h-.5a.5.5 0 0 1-.5-.5V12h-.5a.5.5 0 0 1-.5-.5V11h-.5a.5.5 0 0 1-.5-.5V10h-.5a.5.5 0 0 1-.175-.032l-.179.178a.5.5 0 0 0-.11.168l-2 5a.5.5 0 0 0 .65.65l5-2a.5.5 0 0 0 .168-.11z"/>
+</svg></td>
+      </tr>
+
+    </tbody>
+  </table>
+
+
+
+</div>
+
+<div class="modal" tabindex="-1" role="dialog" id="modalcount">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title">Update Stock</h5>
+
+      </div>
+      <div class="modal-body">
+        <form [formGroup]="addform">
+
+
+          <div class="row">
+
+            <div class="col-12 form-group">
+              <label for="tomato">Tomato(no.of.box)</label>
+              <input type="number" class="form-control" formControlName="tomato" id="tomato" min="0">
+            </div>
+          </div>
+
+          <div class="row">
+            <div class="col-12 form-group">
+              <label for="ginger">Ginger(kg)</label>
+              <input type="number" class="form-control" formControlName="ginger" id="ginger" min="0">
+            </div>
+
+          </div>
+          <div class="row">
+
+            <div class="col-12 form-group">
+              <label for="shallot">Shallot(kg)</label>
+              <input type="number" class="form-control" formControlName="shallot" id="shallot" min="0">
+            </div>
+          </div>
+        </form>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal" (click)="cancel()">Cancel</button>
+        <button type="button" class="btn btn-primary" (click)="submit()">Save</button>
+      </div>
+    </div>
+  </div>
+</div>
